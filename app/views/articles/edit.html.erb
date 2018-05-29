@@ -1,0 +1,15 @@
+<h1>Edit Article's title</h1>
+
+<%= form_with(model: [ @todo, @todo.articles.find(params[:id]) ], local: true) do |form| %>
+<p>
+  <%= form.label :title %><br>
+  <%= form.text_field :title %>
+</p>
+
+<p>
+  <%= form.submit %>
+</p>
+
+<% end %>
+
+<h4><%= link_to 'Back', todo_path(@todo) %></h4>

@@ -1,0 +1,12 @@
+
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <% if @article.is_done %>Completed<% else %>Pending<% end %>
+</p>
+
+<h4><%= link_to 'Back', todo_path(@todo) %></h4>
