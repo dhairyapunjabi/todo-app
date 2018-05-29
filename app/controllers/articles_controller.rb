@@ -27,7 +27,7 @@ class ArticlesController < ApplicationController
   def update
     @todo = Todo.where(id: params[:todo_id]).first
     @article = @todo.articles.find(params[:id])
-    if @article.update(params.require(:article).permit(:title , :is_done ))
+    if @article.update(article_params)
       redirect_to todo_path(@todo)
     else
       render 'edit'
@@ -39,6 +39,17 @@ class ArticlesController < ApplicationController
     @article = @todo.articles.find(params[:id])
     @article.destroy
 
+    redirect_to todo_path(@todo)
+  end
+
+  def complete
+    @todo = Todo.where(id: params[:todo_id]).first
+    params[:articles_checkbox].each do |check|
+      article_id = check
+      @article = Article.find_by_id(article_id)
+      @article.update_attribute(:is_done, true)
+      flash[:notice] = "Task completed"
+    end
     redirect_to todo_path(@todo)
   end
 

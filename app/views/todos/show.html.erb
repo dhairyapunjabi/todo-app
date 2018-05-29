@@ -3,17 +3,25 @@
 <table>
   <% @articles.each do |article| %>
     <tr>
-      <td><%= article.title %></td>
-      <td><%= link_to 'Edit', edit_todo_article_path(@todo, article) %></td>
-      <td><%= link_to 'Delete', todo_article_path(@todo, article),
-        method: :delete,
-        data: { confirm: 'Are you sure?' } %></td>
-      <td><%= link_to 'Show', todo_article_path( @todo, article) %></td>
-     <!-- <td><form action = <%= todo_article_path(@todo, article) %> method = 'patch'><input type="hidden" name="_method" value="patch" /><% if true  %><input type = 'checkbox' name = <%= article.is_done %> value = 'true' checked ><% else %><input type = 'checkbox' name = <%= article.is_done %> value = 'true'><% end %><p><input type="submit" value="Submit"></p>
-     </form></td>-->
-     <td><%= check_box_tag(:is_done, 1 , article.is_done) %>
-        </tr>
-      <% end %>
-    </table>
-    <h4><%= link_to 'Back', todos_path %></h4>
+        <td><%= article.title %></td>
+        <% if article.is_done != true %> <td><%= link_to 'Edit', edit_todo_article_path(@todo, article) %></td><% end %>
+          <td><%= link_to 'Delete', todo_article_path(@todo, article),
+            method: :delete,
+            data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Show', todo_article_path( @todo, article) %></td>
+      <!-- <td><form action = <%= todo_article_path(@todo, article) %> method = 'patch'><input type="hidden" name="_method" value="patch" /><% if true  %><input type = 'checkbox' name = <%= article.is_done %> value = 'true' checked ><% else %><input type = 'checkbox' name = <%= article.is_done %> value = 'true'><% end %><p><input type="submit" value="Submit"></p>
+      </form></td>-->
+      <!--<td><%= check_box_tag(:is_done, 1 , article.is_done) %>-->
+        <td> <%= form_tag(todo_article_complete_path(@todo, article), :method => "post") do %>
+          <% if article.is_done %>
+            <style="color:grey;"><%= check_box_tag "articles_checkbox[]", article.id , true , :disabled => true %></style>
+          <% else %>
+            <%= check_box_tag "articles_checkbox[]", article.id %>
+          <% end %>
+          <%= submit_tag("Complete Task", class: "btn btn-large btn-primary") %>
+        <% end %></td>
+    </tr>
+  <% end %>
+</table>
+<h4><%= link_to 'Back', todos_path %></h4>
 
