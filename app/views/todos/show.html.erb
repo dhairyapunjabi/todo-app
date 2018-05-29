@@ -4,7 +4,7 @@
   <% @articles.each do |article| %>
     <tr>
         <td><%= article.title %></td>
-        <% if article.is_done != true %> <td><%= link_to 'Edit', edit_todo_article_path(@todo, article) %></td><% end %>
+        <% if article.is_done != true %> <td><%= link_to 'Edit', edit_todo_article_path(@todo, article) %></td><% else %><td></td><% end %>
           <td><%= link_to 'Delete', todo_article_path(@todo, article),
             method: :delete,
             data: { confirm: 'Are you sure?' } %></td>
@@ -18,7 +18,11 @@
           <% else %>
             <%= check_box_tag "articles_checkbox[]", article.id %>
           <% end %>
-          <%= submit_tag("Complete Task", class: "btn btn-large btn-primary") %>
+          <% if article.is_done != true  %>
+            <%= submit_tag("Complete Task", class: "btn btn-large btn-primary") %>
+          <% else %>
+            <%= submit_tag("Completed", class: "btn btn-large btn-primary", :disabled => true) %>
+          <% end %>
         <% end %></td>
     </tr>
   <% end %>
