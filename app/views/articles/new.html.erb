@@ -1,14 +1,33 @@
 <%= form_with scope: :article, url: todo_articles_path, local: true do |form| %>
 
-  <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
-  </p>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div class ="navbar-brand"> 
+          <strong>
 
-  <p>
-    <%= form.submit %>
-  </p>
+            <div class="active">
+              <%= link_to todos_path do  %>
+                <div style="color:hsl(216, 80%, 50%);"><strong>   <span class="glyphicon glyphicon-home"></span>Home</strong></div><% end %>
+            </div>
+        </strong> </div>
+      </div>
 
-<% end %>
+      <ul class="nav navbar-nav">
+        <div class="navbar-text"> <strong><li><font size="3"> <%= link_to  todo_path(@todo) do %><%@todo.title%><%end%></font> </li><strong></div>
+          </ul>
+        </div>
+      </nav>
+      <div class="container col-xl-10 col-xl-offset-1" style="position:relative; top:100px;">
+        <p>
+          <h1 class="display-2">   <%= form.label :title %></h1><br>
+          <%= form.text_field :title %>
+        </p>
+
+        <p>
+          <%= form.submit %>
+        </p>
+      </div>
+    <% end %>
 
 

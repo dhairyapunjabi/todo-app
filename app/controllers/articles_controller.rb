@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   def new
+
+    @todo = Todo.where(id: params[:todo_id]).first
     article=Article.new
   end
 
@@ -48,7 +50,7 @@ class ArticlesController < ApplicationController
       article_id = check
       @article = Article.find_by_id(article_id)
       @article.update_attribute(:is_done, true)
-      flash[:notice] = "Task completed"
+#      flash[:notice] = "Task completed"
     end
     redirect_to todo_path(@todo)
   end
