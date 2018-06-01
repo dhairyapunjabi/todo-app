@@ -43,6 +43,16 @@ class TodosController < ApplicationController
     end
   end
 
+  def complete
+    @todo = Todo.where(id: params[:todo_id]).first
+    params[:articles_checkbox].each do |check|
+      article_id = check
+      @article = Article.find_by_id(article_id)
+      @article.update_attribute(:is_done, true)
+#      flash[:notice] = "Task completed"
+    end
+    redirect_to todo_path(@todo)
+  end
   private
   def todo_params
     params.require(:todo).permit(:title)
