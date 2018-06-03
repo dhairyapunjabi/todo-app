@@ -29,6 +29,7 @@ class TodosController < ApplicationController
   end
 
   def show
+#    require 'pry'; binding.pry
     @todo = Todo.find(params[:id])
      @articles = @todo.articles
   end
